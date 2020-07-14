@@ -1,0 +1,39 @@
+const tableName = process.env.COIN_TABLE;
+
+const mapping = {
+    coinAddModel: x => {
+        let body = JSON.parse(x.body);
+        return {
+            TableName: tableName,
+            Item: {
+                CoinName: body.coinName,
+                Value: body.value,
+                Origin: body.origin
+            }
+        }
+    },
+
+    coinGetParamsModel: x => {
+        let pathParams = x.pathParameters;
+        return {
+            TableName: tableName,
+            Key: {
+                CoinName: pathParams.coinName,
+                Origin: pathParams.origin
+            }
+        }
+    },
+
+    coinGetByNameIndex: x => {
+        let pathParams = x.pathParameters;
+        return {
+            KeyConditionExpression: 'CoinName = :coinName',
+            ExpressionAttributeValues: {
+                ':coinName': pathParams.coinName
+            },
+            TableName: tableName
+        }
+    }
+}
+
+module.exports = mapping;
