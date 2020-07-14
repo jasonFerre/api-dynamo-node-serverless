@@ -55,6 +55,13 @@ functions:
           method: get
           path: coin/coinName={coinName}&origin={origin}
 
+  updateCoin:
+    handler: handler.updateCoin
+    events:
+      - http:
+          method: patch
+          path: coin
+
 resources:
   Resources:
     CoinTable:

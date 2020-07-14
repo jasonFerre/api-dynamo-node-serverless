@@ -33,6 +33,24 @@ const mapping = {
             },
             TableName: tableName
         }
+    },
+
+    coinUpdateModel: x => {
+        let body = JSON.parse(x.body);
+
+        return {
+            TableName: tableName,
+            Key: {
+                CoinName: body.coinName,
+                Origin: body.origin
+            },
+            UpdateExpression: 'set value = :value, description = :description',
+            ExpressionAttributeValues: {
+                ':value' : body.value,
+                ':description' : body.description
+            },
+            ReturnValues: 'UPDATED_NEW'
+        };
     }
 }
 
