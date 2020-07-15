@@ -35,7 +35,7 @@ const mapping = {
         }
     },
 
-    coinUpdateModel: x => {
+    coinUpdateModel: x => { //I must change the name of field value, because it's a key name for sdk
         let body = JSON.parse(x.body);
 
         return {
@@ -51,6 +51,17 @@ const mapping = {
             },
             ReturnValues: 'UPDATED_NEW'
         };
+    },
+
+    coinDeleteModel: x => {
+        let pathParams = x.pathParameters;
+        return {
+            TableName: tableName,
+            Key: {
+                CoinName: pathParams.coinName,
+                Origin: pathParams.origin
+            }
+        }
     }
 }
 

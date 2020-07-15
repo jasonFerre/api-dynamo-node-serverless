@@ -47,6 +47,9 @@ functions:
       - http:
           method: get
           path: coin/coinName={coinName}
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
 
   getCoinPathParameters:
     handler: handler.getCoinPathParameters
@@ -54,6 +57,19 @@ functions:
       - http:
           method: get
           path: coin/coinName={coinName}&origin={origin}
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
+
+  deleteCoin:
+    handler: handler.deleteCoin
+    events:
+      - http:
+          method: delete
+          path: coin/coinName={coinName}&origin={origin}
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
 
   updateCoin:
     handler: handler.updateCoin
@@ -61,6 +77,9 @@ functions:
       - http:
           method: patch
           path: coin
+          cors:
+            origin: "*"
+            headers: ${self:custom.allowedHeaders}
 
 resources:
   Resources:

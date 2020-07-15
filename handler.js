@@ -25,11 +25,16 @@ module.exports.getCoinByName = async event => {
 }
 
 module.exports.updateCoin = async event => {
-  console.log(event);
   let params = coinService.coinUpdateModel(event);
-  console.log(params);
-  
+
   let result = await database.update(params);
+  return result;
+}
+
+module.exports.deleteCoin = async event => {
+  let params = coinService.coinDeleteModel(event);
+
+  let result = await database.delete(params);
   return result;
 }
 

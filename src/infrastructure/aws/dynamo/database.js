@@ -41,12 +41,23 @@ const dynamo = {
     },
 
     update: async params => {
-        try{
+        try {
             let data = await dynamodb.update(params).promise();
             return util.successResponse(data);
         }
         catch (err) {
             console.log('error in update function');
+            return util.errorResponse(err);
+        }
+    },
+
+    delete: async params => {
+        try {
+            await dynamodb.delete(params).promise();
+            return util.noContentResponse();
+        }
+        catch (err) {
+            console.log('error in delete function');
             return util.errorResponse(err);
         }
     }
