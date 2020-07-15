@@ -8,7 +8,7 @@ const mapping = {
             Item: {
                 CoinName: body.coinName,
                 Value: body.value,
-                Origin: body.origin
+                CoinOrigin: body.coinOrigin
             }
         }
     },
@@ -19,7 +19,7 @@ const mapping = {
             TableName: tableName,
             Key: {
                 CoinName: pathParams.coinName,
-                Origin: pathParams.origin
+                CoinOrigin: pathParams.coinOrigin
             }
         }
     },
@@ -42,12 +42,12 @@ const mapping = {
             TableName: tableName,
             Key: {
                 CoinName: body.coinName,
-                Origin: body.origin
+                CoinOrigin: body.coinOrigin
             },
             UpdateExpression: 'set value = :value, description = :description',
             ExpressionAttributeValues: {
-                ':value' : body.value,
-                ':description' : body.description
+                ':value': body.value,
+                ':description': body.description
             },
             ReturnValues: 'UPDATED_NEW'
         };
@@ -59,7 +59,7 @@ const mapping = {
             TableName: tableName,
             Key: {
                 CoinName: pathParams.coinName,
-                Origin: pathParams.origin
+                CoinOrigin: pathParams.coinOrigin
             }
         }
     }

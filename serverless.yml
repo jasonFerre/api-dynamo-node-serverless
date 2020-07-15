@@ -46,7 +46,10 @@ functions:
     events:
       - http:
           method: get
-          path: coin/coinName={coinName}
+          path: coin/coinName/{coinName}
+          request:
+            parameters:
+              coinName: true
           cors:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
@@ -56,7 +59,11 @@ functions:
     events:
       - http:
           method: get
-          path: coin/coinName={coinName}&origin={origin}
+          path: coin/coinName/{coinName}/origin/{origin}
+          request:
+            parameters:
+              coinName: true
+              origin: true
           cors:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
@@ -66,7 +73,11 @@ functions:
     events:
       - http:
           method: delete
-          path: coin/coinName={coinName}&origin={origin}
+          path: coin/coinName/{coinName}/origin/{origin}
+          request:
+            parameters:
+              coinName: true
+              origin: true
           cors:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
@@ -91,12 +102,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: CoinName
             AttributeType: S
-          - AttributeName: Origin
+          - AttributeName: CoinOrigin
             AttributeType: S
         KeySchema:
           - AttributeName: CoinName
             KeyType: HASH
-          - AttributeName: Origin
+          - AttributeName: CoinOrigin
             KeyType: RANGE
         ProvisionedThroughput: #BillingModes: PAY_PER_REQUEST
           ReadCapacityUnits: 1
