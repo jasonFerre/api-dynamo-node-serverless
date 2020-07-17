@@ -10,15 +10,15 @@ module.exports.addCoin = async event => {
   return result;
 };
 
-module.exports.getCoinPathParameters = async event => {
-  let parameters = coinService.coinGetParamsModel(event);
+module.exports.getCoinByKeys = async event => {
+  let parameters = coinService.getCoinByKeys(event);
 
-  let result = await database.getByParams(parameters);
+  let result = await database.get(parameters);
   return result;
 }
 
-module.exports.getCoinByName = async event => {
-  let params = coinService.coinGetByNameIndex(event);
+module.exports.queryCoinByName = async event => {
+  let params = coinService.queryCoinByName(event);
 
   let result = await database.query(params);
   return result;

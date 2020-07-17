@@ -12,7 +12,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs12.x
-  timeout: 15
+  timeout: 10
   region: sa-east-1
   stage: ${opt:stage, 'dev'}
   memorySize: 128
@@ -41,8 +41,8 @@ functions:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
 
-  getCoinByName:
-    handler: handler.getCoinByName
+  queryCoinByName:
+    handler: handler.queryCoinByName
     events:
       - http:
           method: get
@@ -54,12 +54,12 @@ functions:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
 
-  getCoinPathParameters:
-    handler: handler.getCoinPathParameters
+  getCoinByKeys:
+    handler: handler.getCoinByKeys
     events:
       - http:
           method: get
-          path: coin/coinName/{coinName}/origin/{origin}
+          path: coin/coinName/{coinName}/origin/{coinOrigin}
           request:
             parameters:
               coinName: true
@@ -73,7 +73,7 @@ functions:
     events:
       - http:
           method: delete
-          path: coin/coinName/{coinName}/origin/{origin}
+          path: coin/coinName/{coinName}/origin/{coinOrigin}
           request:
             parameters:
               coinName: true

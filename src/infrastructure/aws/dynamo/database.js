@@ -18,7 +18,7 @@ const dynamo = {
         }
     },
 
-    getByParams: async params => {
+    get: async params => {
         try {
             let data = await dynamodb.get(params).promise();
             return util.successResponse(data);
