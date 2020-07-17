@@ -1,37 +1,76 @@
+const path = require('path');
+const util = require(path.resolve('src/util/index'));
+
 const tableName = process.env.COIN_TABLE;
 
+var getBody = ((x) => {
+    return util.pascalCase(JSON.parse(x.body));
+});
+
 const mapping = {
+
     coinAddModel: x => {
-        let body = JSON.parse(x.body);
+        //using DataInfo to accept everything
+        let { CoinName, CoinOrigin, ...DataInfo } = getBody(x);
+
         return {
             TableName: tableName,
             Item: {
-                CoinName: body.coinName,
-                Value: body.value,
-                Origin: body.origin
+                CoinName: CoinName,
+                CoinOrigin: CoinOrigin,
+                DataInfo: DataInfo
             }
         }
     },
 
-    coinGetParamsModel: x => {
+    getCoinByKeys: x => {
         let pathParams = x.pathParameters;
         return {
             TableName: tableName,
             Key: {
                 CoinName: pathParams.coinName,
-                Origin: pathParams.origin
+                CoinOrigin: pathParams.coinOrigin
             }
         }
     },
 
-    coinGetByNameIndex: x => {
+    queryCoinByName: x => {
         let pathParams = x.pathParameters;
         return {
-            KeyConditionExpression: 'CoinName = :coinName',
+            KeyConditionExpression: 'CoinName = :CoinName',
             ExpressionAttributeValues: {
-                ':coinName': pathParams.coinName
+                ':CoinName': pathParams.coinName
             },
             TableName: tableName
+        }
+    },
+
+    coinUpdateModel: x => {
+        let { CoinName, CoinOrigin, CoinValue, Description } = getBody(x);
+
+        return {
+            TableName: tableName,
+            Key: {
+                CoinName: CoinName,
+                CoinOrigin: CoinOrigin
+            },
+            UpdateExpression: 'set DataInfo.CoinValue = :CoinValue, DataInfo.Description = :Description',
+            ExpressionAttributeValues: {
+                ':CoinValue': CoinValue,
+                ':Description': Description
+            },
+            ReturnValues: 'UPDATED_NEW'
+        };
+    },
+
+    coinDeleteModel: x => {
+        let pathParams = x.pathParameters;
+        return {
+            TableName: tableName,
+            Key: {
+                CoinName: pathParams.coinName,
+                CoinOrigin: pathParams.coinOrigin
+            }
         }
     }
 }

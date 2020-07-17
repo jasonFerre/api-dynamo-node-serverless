@@ -1,3 +1,5 @@
+const jsConvertCase = require('js-convert-case');
+
 const util = {
     createResponse: data => {
         return {
@@ -7,11 +9,14 @@ const util = {
     },
 
     successResponse: data => {
-        console.log(data);
         return {
             statusCode: 200,
             body: JSON.stringify(data)
         };
+    },
+
+    noContentResponse: () => {
+        return { statusCode: 204 }
     },
 
     errorResponse: err => {
@@ -19,6 +24,10 @@ const util = {
             statusCode: err ? err.statusCode : 500,
             body: JSON.stringify(err)
         };
+    },
+
+    pascalCase: json => {
+        return jsConvertCase.pascalKeys(json);
     }
 };
 

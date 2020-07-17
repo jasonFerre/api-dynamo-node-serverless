@@ -7,22 +7,34 @@ module.exports.addCoin = async event => {
   let coin = coinService.coinAddModel(event);
 
   let result = await database.put(coin);
-  console.log(result);
   return result;
 };
 
-module.exports.getCoinPathParameters = async event => {
-  let parameters = coinService.coinGetParamsModel(event);
-  console.log(parameters);
+module.exports.getCoinByKeys = async event => {
+  let parameters = coinService.getCoinByKeys(event);
 
-  let result = await database.getByParams(parameters);
+  let result = await database.get(parameters);
   return result;
 }
 
-module.exports.getCoinByName = async event => {
-  let params = coinService.coinGetByNameIndex(event);
-  console.log(params);
+module.exports.queryCoinByName = async event => {
+  let params = coinService.queryCoinByName(event);
+
   let result = await database.query(params);
+  return result;
+}
+
+module.exports.updateCoin = async event => {
+  let params = coinService.coinUpdateModel(event);
+
+  let result = await database.update(params);
+  return result;
+}
+
+module.exports.deleteCoin = async event => {
+  let params = coinService.coinDeleteModel(event);
+
+  let result = await database.delete(params);
   return result;
 }
 

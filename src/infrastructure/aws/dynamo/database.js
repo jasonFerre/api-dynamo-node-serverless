@@ -18,7 +18,7 @@ const dynamo = {
         }
     },
 
-    getByParams: async params => {
+    get: async params => {
         try {
             let data = await dynamodb.get(params).promise();
             return util.successResponse(data);
@@ -31,12 +31,33 @@ const dynamo = {
 
     query: async params => {
         try {
-            console.log(params);
             let data = await dynamodb.query(params).promise();
             return util.successResponse(data);
         }
         catch (err) {
             console.log('error in query function');
+            return util.errorResponse(err);
+        }
+    },
+
+    update: async params => {
+        try {
+            let data = await dynamodb.update(params).promise();
+            return util.successResponse(data);
+        }
+        catch (err) {
+            console.log('error in update function');
+            return util.errorResponse(err);
+        }
+    },
+
+    delete: async params => {
+        try {
+            await dynamodb.delete(params).promise();
+            return util.noContentResponse();
+        }
+        catch (err) {
+            console.log('error in delete function');
             return util.errorResponse(err);
         }
     }
