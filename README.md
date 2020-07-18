@@ -9,9 +9,9 @@ To run this project localy, you must install the dependecies bellow
  
  2 - Install the serverless framework npm i -g serverless
  
- 3 - Have a AWS account
+ 3 - It has a AWS account
  
- 4 - Have a AWS profile configured in your machine
+ 4 - It has a AWS profile configured in your machine
  
  # Project Build 
   1 - Install module npm install
