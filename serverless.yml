@@ -22,6 +22,11 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - sqs:*
+      Resource:
+        Fn::GetAtt: [AddCoinQueue, Arn]
+    - Effect: Allow
+      Action:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
@@ -40,7 +45,11 @@ functions:
           cors:
             origin: "*"
             headers: ${self:custom.allowedHeaders}
-
+      #- sqs:
+      #    batchSize: 1
+      #    arn: 
+      #      Fn::GetAtt: [AddCoinQueue, Arn]
+        
   queryCoinByName:
     handler: handler.queryCoinByName
     events:
@@ -93,7 +102,12 @@ functions:
             headers: ${self:custom.allowedHeaders}
 
 resources:
-  Resources:
+  Resources:    
+    AddCoinQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: coin-queue
+
     CoinTable:
       Type: AWS::DynamoDB::Table
       #DeletionPolicy: Retain -> in case of sls remove, this table not will be removed

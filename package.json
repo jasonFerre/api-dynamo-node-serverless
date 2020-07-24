@@ -4,14 +4,17 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/serverless offline -s dev",
+    "debug": "SET SLS_DEBUG=* && node --inspect %USERPROFILE%\\AppData\\Roaming\\npm\\node_modules\\serverless\\bin\\serverless offline -s dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "aws-sdk": "^2.713.0",
-    "js-convert-case": "^4.0.1",
     "serverless-offline": "^6.4.0"
+  },
+  "dependencies": {
+    "js-convert-case": "^4.0.1"
   }
 }
